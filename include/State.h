@@ -1,5 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include "Entity.h"
 
 enum e_State {
     STATE_NULL,
@@ -14,14 +15,6 @@ class State {
         virtual void render(sf::RenderWindow& window) = 0;
 };
 
-class MainScreen : public State {
-    public:
-        MainScreen() {};
-        ~MainScreen() {};
-        void logic(sf::RenderWindow& window);
-        void render(sf::RenderWindow& window);
-};
-
 class StateChanger {
     public:
         StateChanger() : current_state(NULL), next_state(STATE_NULL) {};
@@ -34,3 +27,12 @@ class StateChanger {
         e_State next_state;
 };
 
+class MainScreen : public State {
+    public:
+        MainScreen() : player(50, 50) {};
+        ~MainScreen() {};
+        void logic(sf::RenderWindow& window);
+        void render(sf::RenderWindow& window);
+    private:
+        Player player;
+};

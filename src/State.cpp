@@ -10,6 +10,7 @@ void MainScreen::logic(sf::RenderWindow& window) {
 
 void MainScreen::render(sf::RenderWindow& window) {
     window.clear();
+    window.draw(player);
     window.display();
 }
 
