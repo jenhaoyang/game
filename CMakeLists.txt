@@ -5,11 +5,18 @@ project(game)
 # Set version information in a config.h file
 set(game_VERSION_MAJOR 1)
 set(game_VERSION_MINOR 0)
-include_directories("${PROJECT_INCLUDE_DIR}")
+include_directories("include")
 
 # Define sources and executable
 set(EXECUTABLE_NAME "game")
-add_executable(${EXECUTABLE_NAME} src/main.cpp src/State.cpp include/State.h)
+set(game_PROJECT_SOURCES
+    src/main.cpp
+    src/State.cpp
+)
+set(game_PROJECT_HEADERS
+    include/State.h
+)
+add_executable(${EXECUTABLE_NAME} ${game_PROJECT_SOURCES} ${game_PROJECT_HEADERS})
 
 
 # Detect and add SFML
