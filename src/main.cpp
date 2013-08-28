@@ -7,11 +7,12 @@ StateChanger statechanger;
 int main() {
     sf::RenderWindow window(sf::VideoMode(800, 600), "Game");
     window.setMouseCursorVisible(false);
-    statechanger.changeState(STATE_TEST);
+    statechanger.set_state(STATE_TEST);
+    statechanger.change_state();
     while (window.isOpen()) {
-        statechanger.current_state->logic(window);
-        statechanger.update_state();
-        statechanger.current_state->render(window);
+        statechanger.get_state()->logic(window);
+        statechanger.change_state();
+        statechanger.get_state()->render(window);
     }
     return 0;
 }
