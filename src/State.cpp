@@ -6,6 +6,7 @@ void MainScreen::logic(sf::RenderWindow& window) {
         if (event.type == sf::Event::Closed)
             window.close();
     }
+    player.movement();
 }
 
 void MainScreen::render(sf::RenderWindow& window) {

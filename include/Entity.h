@@ -4,7 +4,7 @@ class Entity : public sf::Transformable, public sf::Drawable {
     public:
         virtual ~Entity() {};
         virtual sf::FloatRect getGlobalBounds() const;
-        virtual void x_movement(const sf::RenderWindow& window) = 0;
+        virtual void movement() = 0;
     protected:
         sf::Shape* shape;
     private:
@@ -20,5 +20,5 @@ class Player : public Entity {
         Player(int x, int y);
         ~Player() { delete shape; };
         
-        void x_movement(const sf::RenderWindow& window);
+        void movement();
 };

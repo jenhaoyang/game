@@ -12,6 +12,10 @@ Player::Player(int x, int y) {
     shape = new sf::RectangleShape(sf::Vector2f(x, y));
 }
 
-void Player::x_movement(const sf::RenderWindow& window) {
-
+void Player::movement() {
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
+        move(1, 0);
+    } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
+        move(-1, 0);
+    }
 }
