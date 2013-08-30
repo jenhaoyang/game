@@ -29,10 +29,12 @@ class StateChanger {
 
 class MainScreen : public State {
     public:
-        MainScreen() : player(50, 50) {};
+        MainScreen();
         ~MainScreen() {};
         void logic(sf::RenderWindow& window);
         void render(sf::RenderWindow& window);
     private:
         Player player;
+        Ground ground;
+        l_Entity col_list;
 };
