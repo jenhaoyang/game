@@ -36,5 +36,5 @@ class MainScreen : public State {
     private:
         Player player;
         Ground ground;
-        l_Entity col_list;
+        l_Ground grounds;
 };

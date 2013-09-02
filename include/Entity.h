@@ -3,9 +3,9 @@
 #include <SFML/System.hpp>
 #include <list>
 
-class Entity;
+class Ground;
 
-typedef std::list<Entity*> l_Entity;
+typedef std::list<Ground> l_Ground;
 
 class Entity : public sf::Transformable, public sf::Drawable {
     public:
@@ -14,8 +14,8 @@ class Entity : public sf::Transformable, public sf::Drawable {
         virtual sf::FloatRect getGlobalBounds() const;
         virtual void x_movement() {};
         virtual void y_movement() {};
-        virtual void x_collisions(l_Entity) {};
-        virtual void y_collisions(l_Entity) {};
+        virtual void x_collisions(const l_Ground&) {};
+        virtual void y_collisions(const l_Ground&) {};
     protected:
         sf::Shape* shape;
         sf::Vector2f velocity;
@@ -34,8 +34,8 @@ class Player : public Entity {
         
         void x_movement();
         void y_movement();
-        void x_collisions(l_Entity);
-        void y_collisions(l_Entity);
+        void x_collisions(const l_Ground&);
+        void y_collisions(const l_Ground&);
 
         sf::Clock clock;
     private:
@@ -44,6 +44,7 @@ class Player : public Entity {
         bool in_air;
         const float maxY;
         const sf::Vector2f gravity;
+        const static int move_speed = 3;
 };
 
 class Ground : public Entity {

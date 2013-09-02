@@ -1,5 +1,6 @@
 #include "State.h"
 #include <vector>
+#include <iostream>
 
 void StateChanger::set_state(e_State state) {
     if (next_state != STATE_CLOSE)
@@ -28,7 +29,7 @@ State* StateChanger::get_state() {
 
 MainScreen::MainScreen() : player(50, 50), ground(800, 40) {
     ground.setPosition(0, 560);
-    col_list.push_back(&ground);
+    grounds.push_back(ground);
 }
 
 void MainScreen::logic(sf::RenderWindow& window) {
@@ -40,9 +41,9 @@ void MainScreen::logic(sf::RenderWindow& window) {
     if (player.clock.getElapsedTime().asMilliseconds() > 5) {
         player.clock.restart();
         player.x_movement();
-        player.x_collisions(col_list);
+        player.x_collisions(grounds);
         player.y_movement();
-        player.y_collisions(col_list);
+        player.y_collisions(grounds);
     }
 }
 
