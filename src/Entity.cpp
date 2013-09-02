@@ -5,11 +5,11 @@ sf::FloatRect Entity::getGlobalBounds() const {
     return getTransform().transformRect(shape->getGlobalBounds());
 }
 
-Player::Player() : Entity(), clock(), in_air(true), maxY(3), gravity(0, 1) {
+Player::Player() : Entity(), clock(), in_air(true), grav_velocity(0), maxY(1), gravity(0, 1) {
     shape = new sf::RectangleShape(sf::Vector2f(10, 10));
 }
 
-Player::Player(int x, int y) : Entity(), clock(), in_air(true), maxY(3), gravity(0, 1) {
+Player::Player(int x, int y) : Entity(), clock(), in_air(true), grav_velocity(0), maxY(1), gravity(0, 1) {
     shape = new sf::RectangleShape(sf::Vector2f(x, y));
 }
 
@@ -44,11 +44,12 @@ void Player::y_movement() {
     if (!in_air) {
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
             in_air = true;
-            velocity.y -= 5;
+            velocity.y -= 15;
         }
     } else {
-        if (velocity.y < maxY)
+        if (velocity.y < maxY) {
             velocity += gravity;
+        }
     }
     move(0, velocity.y);
     std::cout << velocity.y << std::endl << in_air << std::endl;
@@ -61,7 +62,8 @@ void Player::y_collisions(const l_Ground& grounds) {
     for (l_Ground::const_iterator ent = grounds.begin(); ent != grounds.end(); ent++) {
         if (getGlobalBounds().intersects(ent->getGlobalBounds())) {
             in_air = false;
-            velocity -= gravity;
+            velocity.y = 0;
+            break;
         }
     }
 }
