@@ -37,4 +37,5 @@ class MainScreen : public State {
         Player player;
         Ground ground;
         l_Ground grounds;
+        l_Marker markers;
 };

@@ -4,12 +4,15 @@
 #include <list>
 
 class Ground;
+class Marker;
 
 typedef std::list<Ground> l_Ground;
+typedef std::list<Marker> l_Marker;
 
 class Entity : public sf::Transformable, public sf::Drawable {
     public:
         Entity() { velocity = sf::Vector2f(0, 0); };
+        Entity(const Entity&);
         virtual ~Entity() {};
         virtual sf::FloatRect getGlobalBounds() const;
         virtual void x_movement() {};
@@ -32,6 +35,7 @@ class Player : public Entity {
         Player(int x, int y);
         ~Player() { delete shape; };
         
+        void marker_movement(l_Marker&);
         void x_movement();
         void y_movement();
         void x_collisions(const l_Ground&);
@@ -46,6 +50,19 @@ class Player : public Entity {
         const float maxY;
         const sf::Vector2f gravity;
         const static int move_speed = 3;
+};
+
+class Marker : public Entity {
+    public:
+        Marker();
+        Marker(int x, int y);
+        Marker(sf::FloatRect);
+        ~Marker() { delete shape; };
+
+        void x_movement() {};
+        void y_movement() {};
+        void x_collisions(const l_Ground&) {};
+        void y_collisions(const l_Ground&) {};
 };
 
 class Ground : public Entity {

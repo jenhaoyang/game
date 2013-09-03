@@ -38,6 +38,7 @@ void MainScreen::logic(sf::RenderWindow& window) {
         if (event.type == sf::Event::Closed)
             window.close();
     }
+    player.marker_movement(markers);
     if (player.clock.getElapsedTime().asMilliseconds() > 5) {
         player.clock.restart();
         player.x_movement();
