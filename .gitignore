@@ -2,6 +2,5 @@
 *.swp
 *.o
 build/*
+!build/cmake_modules/
 *.vpj
-
-!build/cmake_modules/FindSFML.cmake
