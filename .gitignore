@@ -1,5 +1,7 @@
 .ycm_extra_conf.py*
 *.swp
 *.o
-build
+build/*
 *.vpj
+
+!build/cmake_modules/FindSFML.cmake
