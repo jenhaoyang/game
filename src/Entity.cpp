@@ -1,5 +1,4 @@
 #include "Entity.h"
-#include <iostream>
 
 sf::FloatRect Entity::getGlobalBounds() const {
     return getTransform().transformRect(shape->getGlobalBounds());
@@ -52,7 +51,6 @@ void Player::y_movement() {
         }
     }
     move(0, velocity.y);
-    std::cout << velocity.y << std::endl << in_air << std::endl;
 }
 
 void Player::x_collisions(const l_Ground& grounds) {
