@@ -4,11 +4,11 @@ sf::FloatRect Entity::getGlobalBounds() const {
     return getTransform().transformRect(shape->getGlobalBounds());
 }
 
-Player::Player() : Entity(), clock(), in_air(true), grav_velocity(0), maxY(1), gravity(0, 1) {
+Player::Player() : Entity(), clock(), in_air(true), maxY(1), gravity(0, 1) {
     shape = new sf::RectangleShape(sf::Vector2f(10, 10));
 }
 
-Player::Player(int x, int y) : Entity(), clock(), in_air(true), grav_velocity(0), maxY(1), gravity(0, 1) {
+Player::Player(int x, int y) : Entity(), clock(), in_air(true), maxY(1), gravity(0, 1) {
     shape = new sf::RectangleShape(sf::Vector2f(x, y));
 }
 
