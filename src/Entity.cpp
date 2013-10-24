@@ -12,6 +12,14 @@ Player::Player(int x, int y) : Entity(), clock(), in_air(true), maxY(4), gravity
     shape = new sf::RectangleShape(sf::Vector2f(x, y));
 }
 
+Marker::Marker() : Entity() {
+    shape = new sf::RectangleShape(sf::Vector2f(2, 2));
+}
+
+Marker::Marker(int x, int y) : Entity() {
+    shape = new sf::RectangleShape(sf::Vector2f(x, y));
+}
+
 void Player::x_movement() {
     bool pressed = false;
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {

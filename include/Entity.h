@@ -3,6 +3,7 @@
 #include <SFML/System.hpp>
 #include <list>
 
+class Player;
 class Ground;
 
 typedef std::list<Ground> l_Ground;
@@ -10,7 +11,7 @@ typedef std::list<Ground> l_Ground;
 class Entity : public sf::Transformable, public sf::Drawable {
     public:
         Entity() { velocity = sf::Vector2f(0, 0); };
-        virtual ~Entity() {};
+        virtual ~Entity() { delete shape; };
         virtual sf::FloatRect getGlobalBounds() const;
         virtual void x_movement() {};
         virtual void y_movement() {};
@@ -30,7 +31,7 @@ class Player : public Entity {
     public:
         Player();
         Player(int x, int y);
-        ~Player() { delete shape; };
+        ~Player() {};
         
         void x_movement();
         void y_movement();
@@ -47,9 +48,16 @@ class Player : public Entity {
         const static int move_speed = 3;
 };
 
+class Marker : public Entity {
+    public:
+        Marker();
+        Marker(int x, int y);
+        ~Marker() {};
+};
+
 class Ground : public Entity {
     public:
         Ground();
         Ground(int x, int y);
-        ~Ground() { delete shape; };
+        ~Ground() {};
 };
