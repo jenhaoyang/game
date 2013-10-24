@@ -42,7 +42,6 @@ class Player : public Entity {
         bool r_pressed;
         bool l_pressed;
         bool in_air;
-        float grav_velocity;
         const float maxY;
         const sf::Vector2f gravity;
         const static int move_speed = 3;
