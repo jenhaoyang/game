@@ -30,7 +30,7 @@ class Entity : public sf::Transformable, public sf::Drawable {
 class Player : public Entity {
     public:
         Player();
-        Player(int x, int y);
+        Player(float x, float y);
         ~Player() {};
         
         void x_movement();
@@ -43,15 +43,19 @@ class Player : public Entity {
         bool r_pressed;
         bool l_pressed;
         bool in_air;
-        const float maxY;
-        const sf::Vector2f gravity;
-        const static int move_speed = 3;
+        static const float maxY;
+        static const sf::Vector2f gravity;
+        static const int move_speed;
 };
+
+const float Player::maxY = 6;
+const int Player::move_speed = 3;
+const sf::Vector2f Player::gravity(0, 0.03);
 
 class Marker : public Entity {
     public:
         Marker();
-        Marker(int x, int y);
+        Marker(float x, float y);
         ~Marker() {};
 };
 

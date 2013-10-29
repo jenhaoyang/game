@@ -4,11 +4,11 @@ sf::FloatRect Entity::getGlobalBounds() const {
     return getTransform().transformRect(shape->getGlobalBounds());
 }
 
-Player::Player() : Entity(), clock(), in_air(true), maxY(4), gravity(0, 0.03) {
+Player::Player() : Entity(), clock(), in_air(true) {
     shape = new sf::RectangleShape(sf::Vector2f(10, 10));
 }
 
-Player::Player(int x, int y) : Entity(), clock(), in_air(true), maxY(4), gravity(0, 0.03) {
+Player::Player(float x, float y) : Entity(), clock(), in_air(true) {
     shape = new sf::RectangleShape(sf::Vector2f(x, y));
 }
 
@@ -16,7 +16,7 @@ Marker::Marker() : Entity() {
     shape = new sf::RectangleShape(sf::Vector2f(2, 2));
 }
 
-Marker::Marker(int x, int y) : Entity() {
+Marker::Marker(float x, float y) : Entity() {
     shape = new sf::RectangleShape(sf::Vector2f(x, y));
 }
 
@@ -51,7 +51,7 @@ void Player::y_movement() {
     if (!in_air) {
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
             in_air = true;
-            velocity.y -= 4;
+            velocity.y -= maxY - 2;
         }
     } else {
         if (velocity.y < maxY) {
