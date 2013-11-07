@@ -17,14 +17,12 @@ class State {
 
 class StateChanger {
     public:
-        StateChanger() : current_state(NULL), next_state(STATE_NULL) {};
-        ~StateChanger() {};
-        void set_state(e_State);
-        void change_state();
-        State* get_state();
+        static void set_state(e_State);
+        static void change_state();
+        static State* get_state();
     private:
-        State* current_state;
-        e_State next_state;
+        static State* current_state;
+        static e_State next_state;
 };
 
 class MainScreen : public State {

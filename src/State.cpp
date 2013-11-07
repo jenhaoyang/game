@@ -53,3 +53,6 @@ void MainScreen::render(sf::RenderWindow& window) {
     window.draw(ground);
     window.display();
 }
+
+State* StateChanger::current_state(NULL);
+e_State StateChanger::next_state = STATE_NULL;

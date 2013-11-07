@@ -81,3 +81,7 @@ Ground::Ground() : Entity() {
 Ground::Ground(int x, int y) : Entity() {
     shape = new sf::RectangleShape(sf::Vector2f(x, y));
 }
+
+const float Player::maxY = 6;
+const int Player::move_speed = 3;
+const sf::Vector2f Player::gravity(0, 0.03);

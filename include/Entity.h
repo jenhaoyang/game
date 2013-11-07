@@ -48,10 +48,6 @@ class Player : public Entity {
         static const int move_speed;
 };
 
-const float Player::maxY = 6;
-const int Player::move_speed = 3;
-const sf::Vector2f Player::gravity(0, 0.03);
-
 class Marker : public Entity {
     public:
         Marker();
