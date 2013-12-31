@@ -36,3 +36,11 @@ class MainScreen : public State {
         Ground ground;
         l_Ground grounds;
 };
+
+class Closing : public State {
+    public:
+        Closing() {};
+        ~Closing() {};
+        void logic(sf::RenderWindow& window) { window.close(); }
+        void render(sf::RenderWindow& window) { window.close(); };
+};

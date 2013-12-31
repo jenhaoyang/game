@@ -14,7 +14,7 @@ void StateChanger::change_state() {
             case STATE_NULL:
                 break;
             case STATE_CLOSE:
-                break;
+                current_state = new Closing();
             case STATE_TEST:
                 current_state = new MainScreen();
                 break;
@@ -36,7 +36,7 @@ void MainScreen::logic(sf::RenderWindow& window) {
     sf::Event event;
     while (window.pollEvent(event)) {
         if (event.type == sf::Event::Closed)
-            window.close();
+            StateChanger::set_state(STATE_CLOSE);
     }
     if (player.clock.getElapsedTime().asMilliseconds() > 5) {
         player.clock.restart();

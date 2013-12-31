@@ -52,12 +52,10 @@ class Marker : public Entity {
     public:
         Marker();
         Marker(float x, float y);
-        ~Marker() {};
 };
 
 class Ground : public Entity {
     public:
         Ground();
         Ground(int x, int y);
-        ~Ground() {};
 };
