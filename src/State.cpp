@@ -2,11 +2,16 @@
 #include <vector>
 #include <iostream>
 
+// set what the state will change to next (can be called from
+// anywhere)
 void StateChanger::set_state(e_State state) {
     if (next_state != STATE_CLOSE)
         next_state = state;
 }
 
+// do the actual state change
+// the current state will be set to a new state object
+// and the old one will be deleted
 void StateChanger::change_state() {
     if (next_state != STATE_NULL) {
         delete current_state;
@@ -23,15 +28,20 @@ void StateChanger::change_state() {
     }
 }
 
+// the current state should be read only
 State* StateChanger::get_state() {
     return current_state;
 }
 
+// this is a test area
+// it contains the ground and a player
 MainScreen::MainScreen() : player(50, 50), ground(800, 40) {
     ground.setPosition(0, 560);
     grounds.push_back(ground);
 }
 
+// check events and do movement
+// basically anything that isn't rendering
 void MainScreen::logic(sf::RenderWindow& window) {
     sf::Event event;
     while (window.pollEvent(event)) {
@@ -47,6 +57,7 @@ void MainScreen::logic(sf::RenderWindow& window) {
     }
 }
 
+// draw all objects to the screen
 void MainScreen::render(sf::RenderWindow& window) {
     window.clear();
     window.draw(player);
@@ -54,5 +65,6 @@ void MainScreen::render(sf::RenderWindow& window) {
     window.display();
 }
 
-State* StateChanger::current_state(NULL);
+// the initial state is NULL
+State* StateChanger::current_state = NULL;
 e_State StateChanger::next_state = STATE_NULL;

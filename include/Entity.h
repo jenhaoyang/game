@@ -8,10 +8,14 @@ class Ground;
 
 typedef std::list<Ground> l_Ground;
 
+// Entities are drawable objects, they have a shape and
+// a velocity
+//
+// each movement direction is done before it's collsion
+// this may be changed to be simpler
 class Entity : public sf::Transformable, public sf::Drawable {
     public:
-        Entity() { velocity = sf::Vector2f(0, 0); };
-        virtual ~Entity() { delete shape; };
+        virtual ~Entity() {delete shape;};
         virtual sf::FloatRect getGlobalBounds() const;
         virtual void x_movement() {};
         virtual void y_movement() {};
@@ -27,6 +31,8 @@ class Entity : public sf::Transformable, public sf::Drawable {
         }
 };
 
+// the player is controlled by the Player (wow, really?)
+// they inherit basic Entity functions for drawing and movement
 class Player : public Entity {
     public:
         Player();
@@ -48,14 +54,18 @@ class Player : public Entity {
         static const int move_speed;
 };
 
+// this will eventually be for moving through time and space
 class Marker : public Entity {
     public:
         Marker();
         Marker(float x, float y);
 };
 
+// the ground
+// it just kinda sits there
 class Ground : public Entity {
     public:
         Ground();
+        ~Ground() {}
         Ground(int x, int y);
 };
