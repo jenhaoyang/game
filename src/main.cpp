@@ -6,6 +6,7 @@ int main() {
     // basic setup stuff
     sf::RenderWindow window(sf::VideoMode(800, 600), "Game");
     window.setMouseCursorVisible(false);
+    window.setFramerateLimit(60);
 
     // set the state to the first area, this is a test screen
     StateChanger::set_state(STATE_TEST);

@@ -16,7 +16,7 @@ enum e_State {
 // Abstract class that defines implementation for other states
 class State {
     public:
-        virtual ~State() {std::cout << "Destroying State";};
+        virtual ~State() {};
         virtual void logic(sf::RenderWindow& window) = 0;
         virtual void render(sf::RenderWindow& window) = 0;
 };
@@ -36,13 +36,12 @@ class StateChanger {
 class MainScreen : public State {
     public:
         MainScreen();
-        ~MainScreen() {std::cout << "Destroying MainScreen";};
+        ~MainScreen() {};
         void logic(sf::RenderWindow& window);
         void render(sf::RenderWindow& window);
     private:
         Player player;
         Ground ground;
-        l_Ground grounds;
 };
 
 // The window is closing, used for cleanup

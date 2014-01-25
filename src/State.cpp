@@ -20,6 +20,7 @@ void StateChanger::change_state() {
                 break;
             case STATE_CLOSE:
                 current_state = new Closing();
+                break;
             case STATE_TEST:
                 current_state = new MainScreen();
                 break;
@@ -36,8 +37,8 @@ State* StateChanger::get_state() {
 // this is a test area
 // it contains the ground and a player
 MainScreen::MainScreen() : player(50, 50), ground(800, 40) {
+    player.setPosition(0, 0);
     ground.setPosition(0, 560);
-    grounds.push_back(ground);
 }
 
 // check events and do movement
@@ -47,13 +48,6 @@ void MainScreen::logic(sf::RenderWindow& window) {
     while (window.pollEvent(event)) {
         if (event.type == sf::Event::Closed)
             StateChanger::set_state(STATE_CLOSE);
-    }
-    if (player.clock.getElapsedTime().asMilliseconds() > 5) {
-        player.clock.restart();
-        player.x_movement();
-        player.x_collisions(grounds);
-        player.y_movement();
-        player.y_collisions(grounds);
     }
 }
 
