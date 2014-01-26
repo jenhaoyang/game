@@ -1,10 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include <SFML/System.hpp>
-#include <list>
-
-class Player;
-class Ground;
 
 // Entities are drawable objects, they have a shape and
 // a velocity
@@ -13,15 +9,17 @@ class Ground;
 // this may be changed to be simpler
 class Entity : public sf::Transformable, public sf::Drawable {
     public:
+        Entity();
+        Entity(float x, float y);
         virtual ~Entity() {};
         virtual sf::FloatRect getGlobalBounds() const;
     protected:
-        sf::Shape* shape;
+        sf::RectangleShape rec;
         sf::Vector2f velocity;
     private:
         virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const {
             states.transform *= getTransform();
-            target.draw(*shape, states);
+            target.draw(rec, states);
         }
 };
 
@@ -31,7 +29,6 @@ class Player : public Entity {
     public:
         Player();
         Player(float x, float y);
-        ~Player() {delete shape;};
 };
 
 // the ground
@@ -39,6 +36,5 @@ class Player : public Entity {
 class Ground : public Entity {
     public:
         Ground();
-        ~Ground() {delete shape;}
-        Ground(int x, int y);
+        Ground(float x, float y);
 };

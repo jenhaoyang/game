@@ -2,6 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include "Entity.h"
+#include "EntityManager.h"
 
 // available states
 // NULL is no change
@@ -40,8 +41,7 @@ class MainScreen : public State {
         void logic(sf::RenderWindow& window);
         void render(sf::RenderWindow& window);
     private:
-        Player player;
-        Ground ground;
+        EntityManager entity_manager;
 };
 
 // The window is closing, used for cleanup

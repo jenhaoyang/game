@@ -13,10 +13,12 @@ set(game_PROJECT_SOURCES
     src/main.cpp
     src/State.cpp
     src/Entity.cpp
+    src/EntityManager.cpp
 )
 set(game_PROJECT_HEADERS
     include/State.h
     include/Entity.h
+    include/EntityManager.h
 )
 add_executable(${EXECUTABLE_NAME} ${game_PROJECT_SOURCES} ${game_PROJECT_HEADERS})
 

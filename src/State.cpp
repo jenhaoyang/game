@@ -36,9 +36,13 @@ State* StateChanger::get_state() {
 
 // this is a test area
 // it contains the ground and a player
-MainScreen::MainScreen() : player(50, 50), ground(800, 40) {
-    player.setPosition(0, 0);
-    ground.setPosition(0, 560);
+MainScreen::MainScreen() : entity_manager() {
+    Player* player = new Player(50, 50);
+    Ground* ground = new Ground(800, 40);
+    player->setPosition(0, 0);
+    ground->setPosition(0, 560);
+    entity_manager.add("Player", player);
+    entity_manager.add("Ground", ground);
 }
 
 // check events and do movement
@@ -54,8 +58,7 @@ void MainScreen::logic(sf::RenderWindow& window) {
 // draw all objects to the screen
 void MainScreen::render(sf::RenderWindow& window) {
     window.clear();
-    window.draw(player);
-    window.draw(ground);
+    entity_manager.render(window);
     window.display();
 }
 
