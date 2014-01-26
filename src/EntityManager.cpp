@@ -20,7 +20,7 @@ void EntityManager::remove(std::string name) {
 
 Entity* EntityManager::get(std::string name) const {
     EntityManager_const_iter results = entities.find(name);
-    if (results == entities.end() )
+    if (results == entities.end())
         return NULL;
     return results->second;
 }
@@ -30,7 +30,7 @@ int EntityManager::size() const {
 }
 
 void EntityManager::render(sf::RenderWindow& window) {
-    for ( EntityManager_const_iter iter = entities.begin(); iter != entities.end(); iter++) {
+    for (EntityManager_const_iter iter = entities.begin(); iter != entities.end(); iter++) {
         window.draw(*(iter->second));
     }
 }
