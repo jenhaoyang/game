@@ -12,7 +12,7 @@ class Entity : public sf::Transformable, public sf::Drawable {
         Entity(sf::Vector2f size, sf::Vector2f maxVelocity);
         virtual ~Entity() {};
         virtual sf::FloatRect getGlobalBounds() const;
-        virtual void update(float timeDelta) {};
+        virtual void update(float timeDelta) { move(velocity * timeDelta); };
     protected:
         sf::RectangleShape rec;
         sf::Vector2f velocity;
@@ -28,9 +28,18 @@ class Entity : public sf::Transformable, public sf::Drawable {
 // they inherit basic Entity functions for drawing and movement
 class Player : public Entity {
     public:
-        Player(sf::Vector2f size, sf::Vector2f maxVelocity);
+        Player(sf::Vector2f size, sf::Vector2f maxVelocity, bool in_air);
         
         void update(float timeDelta);
+    private:
+        void x_update();
+        void y_update();
+
+        bool r_pressed;
+        bool l_pressed;
+        bool in_air;
+        int speed;
+        int gravity;
 };
 
 // the ground

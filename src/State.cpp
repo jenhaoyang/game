@@ -37,7 +37,7 @@ State* StateChanger::get_state() {
 // this is a test area
 // it contains the ground and a player
 MainScreen::MainScreen() : entity_manager() {
-    Player* player = new Player(sf::Vector2f(50, 50), sf::Vector2f(10, 10));
+    Player* player = new Player(sf::Vector2f(50, 50), sf::Vector2f(300, 200), true);
     Ground* ground = new Ground(sf::Vector2f(800, 40), sf::Vector2f(0, 0));
     player->setPosition(0, 0);
     ground->setPosition(0, 560);
@@ -53,6 +53,7 @@ void MainScreen::logic(sf::RenderWindow& window) {
         if (event.type == sf::Event::Closed)
             StateChanger::set_state(STATE_CLOSE);
     }
+    entity_manager.update();
 }
 
 // draw all objects to the screen
