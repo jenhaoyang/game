@@ -1,19 +1,16 @@
 #include "Entity.h"
 
-Entity::Entity() :
-    rec(sf::Vector2f(10, 10)) {}
-
-Entity::Entity(float x, float y) :
-    rec(sf::Vector2f(x, y)) {}
+Entity::Entity(sf::Vector2f size, sf::Vector2f maxVelocity) :
+    rec(size),
+    velocity(0, 0),
+    maxVelocity(maxVelocity) {}
 
 sf::FloatRect Entity::getGlobalBounds() const {
     return getTransform().transformRect(rec.getGlobalBounds());
 }
 
-Player::Player() : Entity() {}
+Player::Player(sf::Vector2f size, sf::Vector2f maxVelocity) : Entity(size, maxVelocity) {}
 
-Player::Player(float x, float y) : Entity(x, y) {}
+void Player::update(float timeDelta) {}
 
-Ground::Ground() : Entity() {}
-
-Ground::Ground(float x, float y) : Entity(x, y) {}
+Ground::Ground(sf::Vector2f size, sf::Vector2f maxVelocity) : Entity(size, maxVelocity) {}

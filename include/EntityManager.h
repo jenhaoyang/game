@@ -15,9 +15,11 @@ class EntityManager {
         Entity* get(std::string name) const;
 
         void render(sf::RenderWindow& window);
+        void update();
 
     private:
         std::map<std::string, Entity*> entities;
+        sf::Clock clock;
 
         struct EntityDeallocator {
             void operator()(const std::pair<std::string, Entity*> & p) const {

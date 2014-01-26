@@ -9,13 +9,14 @@
 // this may be changed to be simpler
 class Entity : public sf::Transformable, public sf::Drawable {
     public:
-        Entity();
-        Entity(float x, float y);
+        Entity(sf::Vector2f size, sf::Vector2f maxVelocity);
         virtual ~Entity() {};
         virtual sf::FloatRect getGlobalBounds() const;
+        virtual void update(float timeDelta) {};
     protected:
         sf::RectangleShape rec;
         sf::Vector2f velocity;
+        sf::Vector2f maxVelocity;
     private:
         virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const {
             states.transform *= getTransform();
@@ -27,14 +28,14 @@ class Entity : public sf::Transformable, public sf::Drawable {
 // they inherit basic Entity functions for drawing and movement
 class Player : public Entity {
     public:
-        Player();
-        Player(float x, float y);
+        Player(sf::Vector2f size, sf::Vector2f maxVelocity);
+        
+        void update(float timeDelta);
 };
 
 // the ground
 // it just kinda sits there
 class Ground : public Entity {
     public:
-        Ground();
-        Ground(float x, float y);
+        Ground(sf::Vector2f size, sf::Vector2f maxVelocity);
 };

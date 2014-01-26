@@ -1,6 +1,6 @@
 #include "EntityManager.h"
 
-EntityManager::EntityManager() {}
+EntityManager::EntityManager() : clock() {}
 
 EntityManager::~EntityManager() {
     std::for_each(entities.begin(), entities.end(), EntityDeallocator());
@@ -33,4 +33,11 @@ void EntityManager::render(sf::RenderWindow& window) {
     for (EntityManager_const_iter iter = entities.begin(); iter != entities.end(); iter++) {
         window.draw(*(iter->second));
     }
+}
+
+void EntityManager::update() {
+    float timeDelta = clock.getElapsedTime().asSeconds();
+    clock.restart();
+    for (EntityManager_const_iter iter = entities.begin(); iter != entities.end(); iter++)
+        iter->second->update(timeDelta);
 }
