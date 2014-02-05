@@ -18,7 +18,7 @@ Player::Player(sf::Vector2f size, sf::Vector2f maxVelocity) :
     l_pressed(false),
     in_air(true),
     speed(300),
-    gravity(300)
+    gravity(20)
 {
     if (speed > maxVelocity.x)
         speed = maxVelocity.x;
@@ -69,13 +69,21 @@ void Player::x_update() {
 }
 
 void Player::y_update() {
-    if (in_air && near_ground(*this, *StateChanger::get_state()->entity_manager.get("Ground"), true_gravity)) {
+    if (velocity.y > 0 && near_ground(*this, *StateChanger::get_state()->entity_manager.get("Ground"), true_gravity)) {
         in_air = false;
-        velocity.y -= gravity;
-        move(0, true_gravity);
+        velocity.y = 0;
+        //velocity.y -= gravity;
+        //move(0, true_gravity);
     }
     if (in_air)
         velocity.y += gravity;
+
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
+        if (!in_air) {
+            in_air = true;
+            velocity.y -= maxVelocity.y;
+        }
+    }
 }
 
 Ground::Ground(sf::Vector2f size, sf::Vector2f maxVelocity) : Entity(size, maxVelocity) {}
