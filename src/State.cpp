@@ -1,6 +1,4 @@
 #include "State.h"
-#include <vector>
-#include <iostream>
 
 // set what the state will change to next (can be called from
 // anywhere)
@@ -36,8 +34,8 @@ State* StateChanger::get_state() {
 
 // this is a test area
 // it contains the ground and a player
-MainScreen::MainScreen() : entity_manager() {
-    Player* player = new Player(sf::Vector2f(50, 50), sf::Vector2f(300, 200), true);
+MainScreen::MainScreen() : State() {
+    Player* player = new Player(sf::Vector2f(50, 50), sf::Vector2f(300, 200));
     Ground* ground = new Ground(sf::Vector2f(800, 40), sf::Vector2f(0, 0));
     player->setPosition(0, 0);
     ground->setPosition(0, 560);

@@ -1,4 +1,7 @@
 #include "Entity.h"
+#include "State.h"
+#include "Collision.h"
+#include <iostream>
 
 Entity::Entity(sf::Vector2f size, sf::Vector2f maxVelocity) :
     rec(size),
@@ -9,11 +12,11 @@ sf::FloatRect Entity::getGlobalBounds() const {
     return getTransform().transformRect(rec.getGlobalBounds());
 }
 
-Player::Player(sf::Vector2f size, sf::Vector2f maxVelocity, bool in_air) :
+Player::Player(sf::Vector2f size, sf::Vector2f maxVelocity) :
     Entity(size, maxVelocity),
     r_pressed(false),
     l_pressed(false),
-    in_air(in_air),
+    in_air(true),
     speed(300),
     gravity(300)
 {
@@ -24,6 +27,8 @@ Player::Player(sf::Vector2f size, sf::Vector2f maxVelocity, bool in_air) :
 }
 
 void Player::update(float timeDelta) {
+    true_speed = speed * timeDelta;
+    true_gravity = gravity * timeDelta;
     x_update();
     y_update();
     if (maxVelocity.x != -1) {
@@ -35,6 +40,8 @@ void Player::update(float timeDelta) {
     if (maxVelocity.y != -1) {
         if (velocity.y > maxVelocity.y)
             velocity.y = maxVelocity.y;
+        if (velocity.y < -maxVelocity.y)
+            velocity.y = -maxVelocity.y;
     }
     move(velocity * timeDelta);
 }
@@ -62,9 +69,13 @@ void Player::x_update() {
 }
 
 void Player::y_update() {
-    if (in_air) {
-        velocity.y += gravity;
+    if (in_air && near_ground(*this, *StateChanger::get_state()->entity_manager.get("Ground"), true_gravity)) {
+        in_air = false;
+        velocity.y -= gravity;
+        move(0, true_gravity);
     }
+    if (in_air)
+        velocity.y += gravity;
 }
 
 Ground::Ground(sf::Vector2f size, sf::Vector2f maxVelocity) : Entity(size, maxVelocity) {}

@@ -17,9 +17,11 @@ enum e_State {
 // Abstract class that defines implementation for other states
 class State {
     public:
+        State() : entity_manager() {}
         virtual ~State() {};
         virtual void logic(sf::RenderWindow& window) = 0;
         virtual void render(sf::RenderWindow& window) = 0;
+        EntityManager entity_manager;
 };
 
 // change states
@@ -40,8 +42,6 @@ class MainScreen : public State {
         ~MainScreen() {};
         void logic(sf::RenderWindow& window);
         void render(sf::RenderWindow& window);
-    private:
-        EntityManager entity_manager;
 };
 
 // The window is closing, used for cleanup

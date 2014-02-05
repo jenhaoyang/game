@@ -28,7 +28,7 @@ class Entity : public sf::Transformable, public sf::Drawable {
 // they inherit basic Entity functions for drawing and movement
 class Player : public Entity {
     public:
-        Player(sf::Vector2f size, sf::Vector2f maxVelocity, bool in_air);
+        Player(sf::Vector2f size, sf::Vector2f maxVelocity);
         
         void update(float timeDelta);
     private:
@@ -38,8 +38,10 @@ class Player : public Entity {
         bool r_pressed;
         bool l_pressed;
         bool in_air;
-        int speed;
-        int gravity;
+        float speed;
+        float gravity;
+        float true_speed;
+        float true_gravity;
 };
 
 // the ground
