@@ -72,8 +72,6 @@ void Player::y_update() {
     if (velocity.y > 0 && near_ground(*this, *StateChanger::get_state()->entity_manager.get("Ground"), true_gravity)) {
         in_air = false;
         velocity.y = 0;
-        //velocity.y -= gravity;
-        //move(0, true_gravity);
     }
     if (in_air)
         velocity.y += gravity;
