@@ -1,5 +1,4 @@
 #include "Entity.h"
-#include <iostream>
 
 Entity::Entity(sf::Vector2f size, sf::Vector2f maxVelocity) :
     rec(size),
@@ -37,7 +36,6 @@ void Player::update(float timeDelta) {
         if (velocity.y > maxVelocity.y)
             velocity.y = maxVelocity.y;
     }
-    std::cout << velocity.x << '\n';
     move(velocity * timeDelta);
 }
 
