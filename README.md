@@ -19,3 +19,5 @@ Controls
 Left - Move left
 
 Right - Move right
+
+Space - Jump
