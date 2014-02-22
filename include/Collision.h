@@ -8,4 +8,4 @@ enum Direction {
     RIGHT
 };
 
-bool near_ground(const Entity& ent1, const Entity& ent2, float distance);
+bool collides(const Entity& ent1, const std::string& ent_key);

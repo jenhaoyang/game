@@ -69,7 +69,7 @@ void Player::x_update() {
 }
 
 void Player::y_update() {
-    if (velocity.y > 0 && getGlobalBounds().intersects(StateChanger::get_state()->entity_manager.get("Ground")->getGlobalBounds())) {
+    if (collides(*this, "Ground")) {
         in_air = false;
         velocity.y = 0;
     }
