@@ -29,6 +29,7 @@ Player::Player(sf::Vector2f size, sf::Vector2f maxVelocity) :
 void Player::update(float timeDelta) {
     true_speed = speed * timeDelta;
     true_gravity = gravity * timeDelta;
+    move(velocity * timeDelta);
     x_update();
     y_update();
     if (maxVelocity.x != -1) {
@@ -43,7 +44,6 @@ void Player::update(float timeDelta) {
         if (velocity.y < -maxVelocity.y)
             velocity.y = -maxVelocity.y;
     }
-    move(velocity * timeDelta);
 }
 
 void Player::x_update() {
@@ -69,7 +69,7 @@ void Player::x_update() {
 }
 
 void Player::y_update() {
-    if (velocity.y > 0 && near_ground(*this, *StateChanger::get_state()->entity_manager.get("Ground"), true_gravity)) {
+    if (velocity.y > 0 && getGlobalBounds().intersects(StateChanger::get_state()->entity_manager.get("Ground")->getGlobalBounds())) {
         in_air = false;
         velocity.y = 0;
     }
