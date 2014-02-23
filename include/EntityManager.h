@@ -14,7 +14,7 @@ class EntityManager {
         int size() const;
         Entity* get(std::string name) const;
 
-        void render(sf::RenderWindow& window);
+        void render();
         void update();
 
     private:

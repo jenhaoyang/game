@@ -1,4 +1,5 @@
 #include "EntityManager.h"
+#include "State.h"
 
 EntityManager::EntityManager() : clock() {}
 
@@ -29,9 +30,9 @@ int EntityManager::size() const {
     return entities.size();
 }
 
-void EntityManager::render(sf::RenderWindow& window) {
+void EntityManager::render() {
     for (EntityManager_const_iter iter = entities.begin(); iter != entities.end(); iter++) {
-        window.draw(*(iter->second));
+        StateChanger::window.draw(*(iter->second));
     }
 }
 

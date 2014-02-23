@@ -45,9 +45,9 @@ MainScreen::MainScreen() : State() {
 
 // check events and do movement
 // basically anything that isn't rendering
-void MainScreen::logic(sf::RenderWindow& window) {
+void MainScreen::logic() {
     sf::Event event;
-    while (window.pollEvent(event)) {
+    while (StateChanger::window.pollEvent(event)) {
         if (event.type == sf::Event::Closed)
             StateChanger::set_state(STATE_CLOSE);
     }
@@ -55,12 +55,13 @@ void MainScreen::logic(sf::RenderWindow& window) {
 }
 
 // draw all objects to the screen
-void MainScreen::render(sf::RenderWindow& window) {
-    window.clear();
-    entity_manager.render(window);
-    window.display();
+void MainScreen::render() {
+    StateChanger::window.clear();
+    entity_manager.render();
+    StateChanger::window.display();
 }
 
-// the initial state is NULL
+// the initial state is NULL (different from STATE_NULL
 State* StateChanger::current_state = NULL;
 e_State StateChanger::next_state = STATE_NULL;
+sf::RenderWindow StateChanger::window;
