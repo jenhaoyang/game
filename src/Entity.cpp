@@ -69,12 +69,16 @@ void Player::x_update() {
 }
 
 void Player::y_update() {
-    if (collides(*this, "Ground")) {
+    bool colliding = false;
+    if (collides(*this, "Ground") || collides(*this, "Ground2")) {
+        colliding = true;
         in_air = false;
         velocity.y = 0;
     }
-    if (in_air)
+    if (in_air) {
         velocity.y += gravity;
+    } else if (!colliding)
+        in_air = true;
 
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
         if (!in_air) {
