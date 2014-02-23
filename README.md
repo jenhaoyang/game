@@ -13,7 +13,7 @@ make
 make install
 ```
 
-Dependancies
+Dependencies
 ============
 SFML 2.0+
 
