@@ -13,6 +13,10 @@ make
 make install
 ```
 
+Dependancies
+============
+SFML 2.0+
+
 Controls
 ========
 
