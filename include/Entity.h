@@ -1,26 +1,30 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include <SFML/System.hpp>
+#include <Box2D/Box2D.h>
 
-// Entities are drawable objects, they have a shape and
-// a velocity
+// Entities are drawable objects, they have a shape,
+// a velocity, and a Box2d body which can have
+// any number of fixtures
 //
-// each movement direction is done before it's collsion
-// this may be changed to be simpler
-class Entity : public sf::Transformable, public sf::Drawable {
+// There may be a better way to bind shapes to fixtures, but
+// right now it's simple
+class Entity : public sf::Drawable {
     public:
-        Entity(sf::Vector2f size, sf::Vector2f maxVelocity);
+        Entity(b2Vec2 maxVelocity);
         virtual ~Entity() {};
-        virtual sf::FloatRect getGlobalBounds() const;
-        virtual void update(float timeDelta) { move(velocity * timeDelta); };
+        //step function for each entity
+        virtual void update() {};
+        b2Body* body;
     protected:
-        sf::RectangleShape rec;
-        sf::Vector2f velocity;
-        sf::Vector2f maxVelocity;
+        //shape to be drawn on the screen
+        sf::Shape* shape;
+        //we can only move this fast
+        b2Vec2 maxVelocity;
     private:
         virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const {
-            states.transform *= getTransform();
-            target.draw(rec, states);
+            states.transform *= shape->getTransform();
+            target.draw(*shape, states);
         }
 };
 
@@ -28,25 +32,16 @@ class Entity : public sf::Transformable, public sf::Drawable {
 // they inherit basic Entity functions for drawing and movement
 class Player : public Entity {
     public:
-        Player(sf::Vector2f size, sf::Vector2f maxVelocity);
+        Player(sf::Vector2f size, b2Vec2 maxVelocity, float x, float y);
+        ~Player() { delete shape; }
         
-        void update(float timeDelta);
-    private:
-        void x_update();
-        void y_update();
-
-        bool r_pressed;
-        bool l_pressed;
-        bool in_air;
-        float speed;
-        float gravity;
-        float true_speed;
-        float true_gravity;
+        void update();
 };
 
 // the ground
 // it just kinda sits there
 class Ground : public Entity {
     public:
-        Ground(sf::Vector2f size, sf::Vector2f maxVelocity);
+        Ground(sf::Vector2f size, float x, float y);
+        ~Ground() { delete shape; }
 };

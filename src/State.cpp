@@ -35,9 +35,9 @@ State* StateChanger::get_state() {
 // this is a test area
 // it contains the ground and a player
 MainScreen::MainScreen() : State() {
-    Player* player = new Player(sf::Vector2f(50, 50), sf::Vector2f(300, 700));
-    Ground* ground = new Ground(sf::Vector2f(800, 40), sf::Vector2f(0, 0));
-    Ground* ground2 = new Ground(sf::Vector2f(40, 40), sf::Vector2f(0, 0));
+    Player* player = new Player(sf::Vector2f(50, 50), b2Vec2(300, 700));
+    Ground* ground = new Ground(sf::Vector2f(800, 40));
+    Ground* ground2 = new Ground(sf::Vector2f(40, 40));
     player->setPosition(0, 0);
     ground->setPosition(0, 560);
     ground2->setPosition(300, 300);

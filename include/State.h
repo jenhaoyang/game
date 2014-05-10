@@ -1,6 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-#include <iostream>
+#include <Box2D/Dynamics/b2World.h>
 #include "Entity.h"
 #include "EntityManager.h"
 
@@ -17,11 +17,12 @@ enum e_State {
 // Abstract class that defines implementation for other states
 class State {
     public:
-        State() : entity_manager() {}
+        State() : entity_manager() { world = new b2World(b2Vec2(0, -9.8)); }
         virtual ~State() {};
         virtual void logic() = 0;
         virtual void render() = 0;
         EntityManager entity_manager;
+        b2World* world;
 };
 
 // change states

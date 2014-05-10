@@ -37,8 +37,6 @@ void EntityManager::render() {
 }
 
 void EntityManager::update() {
-    float timeDelta = clock.getElapsedTime().asSeconds();
-    clock.restart();
     for (EntityManager_const_iter iter = entities.begin(); iter != entities.end(); iter++)
-        iter->second->update(timeDelta);
+        iter->second->update();
 }
