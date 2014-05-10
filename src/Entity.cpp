@@ -1,6 +1,5 @@
 #include "Entity.h"
 #include "State.h"
-#include "Collision.h"
 #include <Box2D/Box2D.h>
 
 Entity::Entity(b2Vec2 maxVelocity) : maxVelocity(maxVelocity) {}

@@ -35,15 +35,12 @@ State* StateChanger::get_state() {
 // this is a test area
 // it contains the ground and a player
 MainScreen::MainScreen() : State() {
-    Player* player = new Player(sf::Vector2f(50, 50), b2Vec2(300, 700));
-    Ground* ground = new Ground(sf::Vector2f(800, 40));
-    Ground* ground2 = new Ground(sf::Vector2f(40, 40));
-    player->setPosition(0, 0);
-    ground->setPosition(0, 560);
-    ground2->setPosition(300, 300);
+    Player* player = new Player(sf::Vector2f(50, 50), b2Vec2(300, 700), 100, 100);
+    Ground* ground = new Ground(sf::Vector2f(800, 40), 200, 100);
+    //Ground* ground2 = new Ground(sf::Vector2f(40, 40));
     entity_manager.add("Player", player);
     entity_manager.add("Ground", ground);
-    entity_manager.add("Ground2", ground2);
+    //entity_manager.add("Ground2", ground2);
 }
 
 // check events and do movement

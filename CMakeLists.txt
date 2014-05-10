@@ -14,15 +14,15 @@ set(game_PROJECT_SOURCES
     src/State.cpp
     src/Entity.cpp
     src/EntityManager.cpp
-    src/Collision.cpp
 )
 set(game_PROJECT_HEADERS
     include/State.h
     include/Entity.h
     include/EntityManager.h
-    include/Collision.h
 )
 add_executable(${EXECUTABLE_NAME} ${game_PROJECT_SOURCES} ${game_PROJECT_HEADERS})
+include_directories(/usr/include/Box2D)
+target_link_libraries(${EXECUTABLE_NAME} /lib64/libBox2D.so.2.1.0)
 
 
 # Detect and add SFML
