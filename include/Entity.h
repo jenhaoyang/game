@@ -23,7 +23,12 @@ class Entity : public sf::Drawable {
         b2Vec2 maxVelocity;
     private:
         virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const {
-            states.transform *= shape->getTransform();
+            b2Vec2 pos = body->GetPosition();
+            float angle = body->GetAngle();
+            sf::Transform transform = shape->getTransform();
+            transform.translate(pos.x, pos.y);
+            transform.rotate(angle);
+            states.transform *= transform;
             target.draw(*shape, states);
         }
 };
@@ -32,7 +37,7 @@ class Entity : public sf::Drawable {
 // they inherit basic Entity functions for drawing and movement
 class Player : public Entity {
     public:
-        Player(sf::Vector2f size, b2Vec2 maxVelocity, float x, float y);
+        Player(sf::Vector2f size, b2Vec2 maxVelocity, float x, float y, b2World* world);
         ~Player() { delete shape; }
         
         void update();
@@ -42,6 +47,6 @@ class Player : public Entity {
 // it just kinda sits there
 class Ground : public Entity {
     public:
-        Ground(sf::Vector2f size, float x, float y);
+        Ground(sf::Vector2f size, float x, float y, b2World* world);
         ~Ground() { delete shape; }
 };

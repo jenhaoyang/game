@@ -35,12 +35,10 @@ State* StateChanger::get_state() {
 // this is a test area
 // it contains the ground and a player
 MainScreen::MainScreen() : State() {
-    Player* player = new Player(sf::Vector2f(50, 50), b2Vec2(300, 700), 100, 100);
-    Ground* ground = new Ground(sf::Vector2f(800, 40), 200, 100);
-    //Ground* ground2 = new Ground(sf::Vector2f(40, 40));
+    Player* player = new Player(sf::Vector2f(50, 50), b2Vec2(300, 700), 100, 100, world);
+    //Ground* ground = new Ground(sf::Vector2f(800, 40), 0, 500, world);
     entity_manager.add("Player", player);
-    entity_manager.add("Ground", ground);
-    //entity_manager.add("Ground2", ground2);
+    //entity_manager.add("Ground", ground);
 }
 
 // check events and do movement
@@ -51,6 +49,7 @@ void MainScreen::logic() {
         if (event.type == sf::Event::Closed)
             StateChanger::set_state(STATE_CLOSE);
     }
+    world->Step(1.0f/60.0f, 10, 8);
     entity_manager.update();
 }
 
