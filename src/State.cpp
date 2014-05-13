@@ -1,4 +1,5 @@
 #include "State.h"
+#include "SFMLDebugDraw.h"
 
 // set what the state will change to next (can be called from
 // anywhere)
@@ -39,6 +40,10 @@ MainScreen::MainScreen() : State() {
     //Ground* ground = new Ground(sf::Vector2f(800, 40), 0, 500, world);
     entity_manager.add("Player", player);
     //entity_manager.add("Ground", ground);
+    
+    SFMLDebugDraw* debugDraw = new SFMLDebugDraw(StateChanger::window);
+    debugDraw->SetFlags(b2Draw::e_shapeBit);
+    world->SetDebugDraw(debugDraw);
 }
 
 // check events and do movement
@@ -57,6 +62,7 @@ void MainScreen::logic() {
 void MainScreen::render() {
     StateChanger::window.clear();
     entity_manager.render();
+    world->DrawDebugData();
     StateChanger::window.display();
 }
 
