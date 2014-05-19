@@ -16,6 +16,7 @@ Player::Player(sf::Vector2f size, b2Vec2 maxVelocity, float x, float y, b2World*
     b2PolygonShape polygonShape;
     
     b2FixtureDef myFixtureDef;
+    myFixtureDef.density = 1;
     myFixtureDef.shape = &polygonShape;
 
     polygonShape.SetAsBox(size.x/2, size.y/2);
@@ -37,6 +38,7 @@ Ground::Ground(sf::Vector2f size, float x, float y, b2World* world) : Entity(b2V
     b2PolygonShape polygonShape;
 
     b2FixtureDef myFixtureDef;
+    myFixtureDef.density = 1;
     myFixtureDef.shape = &polygonShape;
 
     polygonShape.SetAsBox(size.x/2, size.y/2);

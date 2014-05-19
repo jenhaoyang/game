@@ -17,7 +17,7 @@ enum e_State {
 // Abstract class that defines implementation for other states
 class State {
     public:
-        State() : entity_manager() { world = new b2World(b2Vec2(0, -9.8)); }
+        State() : entity_manager() { world = new b2World(b2Vec2(0, 9.8)); }
         virtual ~State() {};
         virtual void logic() = 0;
         virtual void render() = 0;

@@ -3,6 +3,10 @@
 #include <SFML/System.hpp>
 #include <Box2D/Box2D.h>
 
+#include "Globals.h"
+
+#include <iostream>
+
 // Entities are drawable objects, they have a shape,
 // a velocity, and a Box2d body which can have
 // any number of fixtures
@@ -24,10 +28,9 @@ class Entity : public sf::Drawable {
     private:
         virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const {
             b2Vec2 pos = body->GetPosition();
-            float angle = body->GetAngle();
+            float angle = body->GetAngle() * RADTODEG;
             sf::Transform transform = shape->getTransform();
-            transform.translate(pos.x, pos.y);
-            transform.rotate(angle);
+            transform.translate(pos.x * PM, pos.y * PM).rotate(angle).scale(PM, PM);
             states.transform *= transform;
             target.draw(*shape, states);
         }

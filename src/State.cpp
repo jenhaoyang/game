@@ -36,10 +36,10 @@ State* StateChanger::get_state() {
 // this is a test area
 // it contains the ground and a player
 MainScreen::MainScreen() : State() {
-    Player* player = new Player(sf::Vector2f(50, 50), b2Vec2(300, 700), 100, 100, world);
-    //Ground* ground = new Ground(sf::Vector2f(800, 40), 0, 500, world);
+    Player* player = new Player(sf::Vector2f(1.82, 1.82), b2Vec2(300, 700), 3, 3, world);
+    Ground* ground = new Ground(sf::Vector2f(2, 2), 4.5, 10, world);
     entity_manager.add("Player", player);
-    //entity_manager.add("Ground", ground);
+    entity_manager.add("Ground", ground);
     
     SFMLDebugDraw* debugDraw = new SFMLDebugDraw(StateChanger::window);
     debugDraw->SetFlags(b2Draw::e_shapeBit);
@@ -53,6 +53,10 @@ void MainScreen::logic() {
     while (StateChanger::window.pollEvent(event)) {
         if (event.type == sf::Event::Closed)
             StateChanger::set_state(STATE_CLOSE);
+        if (event.type == sf::Event::Resized) {
+            sf::FloatRect visibleArea(0, 0, event.size.width, event.size.height);
+            StateChanger::window.setView(sf::View(visibleArea));
+        }
     }
     world->Step(1.0f/60.0f, 10, 8);
     entity_manager.update();
