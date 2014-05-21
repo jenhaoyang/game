@@ -1,6 +1,6 @@
 #pragma once
 
-#define RADTODEG (b2_pi / 180.0)
+#define RADTODEG (180.0 / b2_pi)
 #define DEGTORAD (1.0 / RADTODEG)
 
 //Pixels per Meter

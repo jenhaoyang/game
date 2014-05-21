@@ -66,7 +66,7 @@ void MainScreen::logic() {
 void MainScreen::render() {
     StateChanger::window.clear();
     entity_manager.render();
-    world->DrawDebugData();
+    //world->DrawDebugData();
     StateChanger::window.display();
 }
 

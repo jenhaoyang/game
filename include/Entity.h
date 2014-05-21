@@ -29,9 +29,9 @@ class Entity : public sf::Drawable {
         virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const {
             b2Vec2 pos = body->GetPosition();
             float angle = body->GetAngle() * RADTODEG;
-            sf::Transform transform = shape->getTransform();
-            transform.translate(pos.x * PM, pos.y * PM).rotate(angle).scale(PM, PM);
-            states.transform *= transform;
+            shape->setPosition(pos.x * PM, pos.y * PM);
+            shape->setRotation(angle);
+            shape->setScale(PM, PM);
             target.draw(*shape, states);
         }
 };
