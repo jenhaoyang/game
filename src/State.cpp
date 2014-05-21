@@ -37,7 +37,7 @@ State* StateChanger::get_state() {
 // it contains the ground and a player
 MainScreen::MainScreen() : State() {
     Player* player = new Player(sf::Vector2f(1.82, 1.82), b2Vec2(300, 700), 3, 3, world);
-    Ground* ground = new Ground(sf::Vector2f(2, 2), 4.5, 10, world);
+    Ground* ground = new Ground(sf::Vector2f(13, 2), 7, 13, world);
     entity_manager.add("Player", player);
     entity_manager.add("Ground", ground);
     

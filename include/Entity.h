@@ -44,6 +44,8 @@ class Player : public Entity {
         ~Player() { delete shape; }
         
         void update();
+    private:
+        int remainingJumpSteps;
 };
 
 // the ground
