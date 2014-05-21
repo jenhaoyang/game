@@ -16,6 +16,7 @@ make install
 Dependencies
 ============
 SFML 2.0+
+Box2d 2.3+
 
 Controls
 ========
