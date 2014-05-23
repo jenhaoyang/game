@@ -2,9 +2,11 @@
 #include "State.h"
 #include <Box2D/Box2D.h>
 
-Entity::Entity(b2Vec2 maxVelocity) : maxVelocity(maxVelocity) {}
+Entity::Entity(b2Vec2 maxVelocity) : maxVelocity(maxVelocity), id(E_NULL) {}
 
 Player::Player(sf::Vector2f size, b2Vec2 maxVelocity, float x, float y, b2World* world) : Entity(maxVelocity) {
+    id = E_PLAYER;
+
     shape = new sf::RectangleShape(size);
     shape->setOrigin(size.x/2, size.y/2);
     shape->setPosition(x, y);
@@ -14,6 +16,7 @@ Player::Player(sf::Vector2f size, b2Vec2 maxVelocity, float x, float y, b2World*
     myBodyDef.type = b2_dynamicBody;
     myBodyDef.position.Set(x, y);
     body = world->CreateBody(&myBodyDef);
+    body->SetFixedRotation(true);
 
     b2PolygonShape polygonShape;
     
@@ -23,6 +26,13 @@ Player::Player(sf::Vector2f size, b2Vec2 maxVelocity, float x, float y, b2World*
 
     polygonShape.SetAsBox(size.x/2, size.y/2);
     body->CreateFixture(&myFixtureDef);
+
+    polygonShape.SetAsBox(0.3, 0.3, b2Vec2(0, size.y/2), 0);
+    myFixtureDef.isSensor = true;
+    b2Fixture* footSensorFixture = body->CreateFixture(&myFixtureDef);
+    footSensorFixture->SetUserData((void*)3);
+
+    body->SetUserData(this);
 }
 
 void Player::update() {
@@ -48,6 +58,8 @@ void Player::update() {
 
 
 Ground::Ground(sf::Vector2f size, float x, float y, b2World* world) : Entity(b2Vec2(0, 0)) {
+    id = E_GROUND;
+
     shape = new sf::RectangleShape(size);
     shape->setOrigin(size.x/2, size.y/2);
     shape->setPosition(x, y);
@@ -66,4 +78,6 @@ Ground::Ground(sf::Vector2f size, float x, float y, b2World* world) : Entity(b2V
 
     polygonShape.SetAsBox(size.x/2, size.y/2);
     body->CreateFixture(&myFixtureDef);
+
+    body->SetUserData(this);
 }

@@ -1,4 +1,5 @@
 #include "State.h"
+#include "Collisions.h"
 #include "SFMLDebugDraw.h"
 
 // set what the state will change to next (can be called from
@@ -36,9 +37,9 @@ State* StateChanger::get_state() {
 // this is a test area
 // it contains the ground and a player
 MainScreen::MainScreen() : State() {
-    Player* player = new Player(sf::Vector2f(1.82, 1.82), b2Vec2(300, 700), 3, 3, world);
+    Player* player = new Player(sf::Vector2f(0.82, 1.82), b2Vec2(300, 700), 3, 3, world);
     Ground* ground = new Ground(sf::Vector2f(13, 2), 7, 13, world);
-    Ground* ground2 = new Ground(sf::Vector2f(2, 2), 4, 5, world);
+    Ground* ground2 = new Ground(sf::Vector2f(2, 2), 4, 10, world);
     entity_manager.add("Player", player);
     entity_manager.add("Ground", ground);
     entity_manager.add("Ground2", ground2);
@@ -46,6 +47,9 @@ MainScreen::MainScreen() : State() {
     SFMLDebugDraw* debugDraw = new SFMLDebugDraw(StateChanger::window);
     debugDraw->SetFlags(b2Draw::e_shapeBit);
     world->SetDebugDraw(debugDraw);
+
+    MyContactListener* myContactListener = new MyContactListener;
+    world->SetContactListener(myContactListener);
 }
 
 // check events and do movement
@@ -60,15 +64,15 @@ void MainScreen::logic() {
             StateChanger::window.setView(sf::View(visibleArea));
         }
     }
-    world->Step(1.0f/60.0f, 10, 8);
     entity_manager.update();
+    world->Step(1.0f/60.0f, 10, 8);
 }
 
 // draw all objects to the screen
 void MainScreen::render() {
     StateChanger::window.clear();
     entity_manager.render();
-    //world->DrawDebugData();
+    world->DrawDebugData();
     StateChanger::window.display();
 }
 

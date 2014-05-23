@@ -7,6 +7,14 @@
 
 #include <iostream>
 
+class Ground;
+
+enum e_id {
+    E_NULL,
+    E_PLAYER,
+    E_GROUND
+};
+
 // Entities are drawable objects, they have a shape,
 // a velocity, and a Box2d body which can have
 // any number of fixtures
@@ -19,12 +27,14 @@ class Entity : public sf::Drawable {
         virtual ~Entity() {};
         //step function for each entity
         virtual void update() {};
+        virtual e_id getID() { return id; };
         b2Body* body;
     protected:
         //shape to be drawn on the screen
         sf::Shape* shape;
         //we can only move this fast
         b2Vec2 maxVelocity;
+        e_id id;
     private:
         virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const {
             b2Vec2 pos = body->GetPosition();
@@ -44,6 +54,8 @@ class Player : public Entity {
         ~Player() { delete shape; }
         
         void update();
+        void BeginContact(Ground* ground);
+        void EndContact(Ground* ground);
 };
 
 // the ground
@@ -52,4 +64,7 @@ class Ground : public Entity {
     public:
         Ground(sf::Vector2f size, float x, float y, b2World* world);
         ~Ground() { delete shape; }
+
+        void BeginContact(Player* player) {};
+        void EndContact(Player* player) {};
 };

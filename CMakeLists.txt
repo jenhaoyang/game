@@ -15,12 +15,14 @@ set(game_PROJECT_SOURCES
     src/Entity.cpp
     src/EntityManager.cpp
     src/SFMLDebugDraw.cpp
+    src/Collisions.cpp
 )
 set(game_PROJECT_HEADERS
     include/State.h
     include/Entity.h
     include/EntityManager.h
     include/SFMLDebugDraw.h
+    include/Collisions.h
 )
 add_executable(${EXECUTABLE_NAME} ${game_PROJECT_SOURCES} ${game_PROJECT_HEADERS})
 include_directories(/usr/include/Box2D)
