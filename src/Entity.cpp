@@ -7,6 +7,7 @@ Entity::Entity(b2Vec2 maxVelocity) : maxVelocity(maxVelocity), id(E_NULL) {}
 
 Player::Player(sf::Vector2f size, b2Vec2 maxVelocity, float x, float y, b2World* world) : Entity(maxVelocity) {
     id = E_PLAYER;
+    numFootContacts = 0;
 
     shape = new sf::RectangleShape(size);
     shape->setOrigin(size.x/2, size.y/2);
@@ -48,8 +49,8 @@ void Player::update() {
     } else
         force = vel.x * -10;
 
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
-        float impulse = body->GetMass();
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && numFootContacts > 0) {
+        float impulse = body->GetMass() * 2;
         body->ApplyLinearImpulse(b2Vec2(0, -impulse), body->GetWorldCenter());
     }
 
@@ -58,7 +59,7 @@ void Player::update() {
 
 void Player::BeginContact(Entity* entity, void* fixtureData) {
     if ((intptr_t)fixtureData == 1) {
-        std::cout << "Begin foot contact" << std::endl;
+        numFootContacts++;
         return;
     }
     switch(entity->getID()) {
@@ -71,7 +72,7 @@ void Player::BeginContact(Entity* entity, void* fixtureData) {
 
 void Player::EndContact(Entity* entity, void* fixtureData) {
     if ((intptr_t)fixtureData == 1) {
-        std::cout << "End foot contact" << std::endl;
+        numFootContacts--;
         return;
     }
     switch(entity->getID()) {
@@ -82,13 +83,9 @@ void Player::EndContact(Entity* entity, void* fixtureData) {
     }
 }
 
-void Player::BeginContact(Ground* ground) {
-    std::cout << "Begin contact with ground" << std::endl;
-}
+void Player::BeginContact(Ground* ground) {}
 
-void Player::EndContact(Ground* ground) {
-    std::cout << "End contact with ground" << std::endl;
-}
+void Player::EndContact(Ground* ground) {}
 
 
 Ground::Ground(sf::Vector2f size, float x, float y, b2World* world) : Entity(b2Vec2(0, 0)) {

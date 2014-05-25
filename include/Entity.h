@@ -63,6 +63,8 @@ class Player : public Entity {
 
         void BeginContact(Ground* ground);
         void EndContact(Ground* ground);
+    protected:
+        int numFootContacts;
 };
 
 // the ground
