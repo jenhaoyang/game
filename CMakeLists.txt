@@ -7,6 +7,8 @@ set(game_VERSION_MAJOR 1)
 set(game_VERSION_MINOR 0)
 include_directories("include")
 
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
+
 # Define sources and executable
 set(EXECUTABLE_NAME "game")
 set(game_PROJECT_SOURCES

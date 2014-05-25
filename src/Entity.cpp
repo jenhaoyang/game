@@ -1,6 +1,7 @@
 #include "Entity.h"
 #include "State.h"
 #include <Box2D/Box2D.h>
+#include <cstdint>
 
 Entity::Entity(b2Vec2 maxVelocity) : maxVelocity(maxVelocity), id(E_NULL) {}
 
@@ -30,7 +31,7 @@ Player::Player(sf::Vector2f size, b2Vec2 maxVelocity, float x, float y, b2World*
     polygonShape.SetAsBox(0.3, 0.3, b2Vec2(0, size.y/2), 0);
     myFixtureDef.isSensor = true;
     b2Fixture* footSensorFixture = body->CreateFixture(&myFixtureDef);
-    footSensorFixture->SetUserData((void*)3);
+    footSensorFixture->SetUserData((void*)1);
 
     body->SetUserData(this);
 }
@@ -53,7 +54,40 @@ void Player::update() {
     }
 
     body->ApplyForce(b2Vec2(force, 0), body->GetWorldCenter());
+}
 
+void Player::BeginContact(Entity* entity, void* fixtureData) {
+    if ((intptr_t)fixtureData == 1) {
+        std::cout << "Begin foot contact" << std::endl;
+        return;
+    }
+    switch(entity->getID()) {
+        case E_GROUND:
+            BeginContact(static_cast<Ground*>(entity));
+        default:
+            break;
+    }
+}
+
+void Player::EndContact(Entity* entity, void* fixtureData) {
+    if ((intptr_t)fixtureData == 1) {
+        std::cout << "End foot contact" << std::endl;
+        return;
+    }
+    switch(entity->getID()) {
+        case E_GROUND:
+            EndContact(static_cast<Ground*>(entity));
+        default:
+            break;
+    }
+}
+
+void Player::BeginContact(Ground* ground) {
+    std::cout << "Begin contact with ground" << std::endl;
+}
+
+void Player::EndContact(Ground* ground) {
+    std::cout << "End contact with ground" << std::endl;
 }
 
 
@@ -80,4 +114,26 @@ Ground::Ground(sf::Vector2f size, float x, float y, b2World* world) : Entity(b2V
     body->CreateFixture(&myFixtureDef);
 
     body->SetUserData(this);
+}
+
+void Ground::BeginContact(Entity* entity, void* fixtureData) {
+    if ((intptr_t)fixtureData == 1) {
+        std::cout << "Begin foot contact" << std::endl;
+        return;
+    }
+    switch(entity->getID()) {
+        default:
+            break;
+    }
+}
+
+void Ground::EndContact(Entity* entity, void* fixtureData) {
+    if ((intptr_t)fixtureData == 1) {
+        std::cout << "Begin foot contact" << std::endl;
+        return;
+    }
+    switch(entity->getID()) {
+        default:
+            break;
+    }
 }

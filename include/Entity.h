@@ -8,6 +8,7 @@
 #include <iostream>
 
 class Ground;
+class Player;
 
 enum e_id {
     E_NULL,
@@ -29,6 +30,8 @@ class Entity : public sf::Drawable {
         virtual void update() {};
         virtual e_id getID() { return id; };
         b2Body* body;
+        virtual void BeginContact(Entity* entity, void* fixtureData) = 0;
+        virtual void EndContact(Entity* entity, void* fixtureData) = 0;
     protected:
         //shape to be drawn on the screen
         sf::Shape* shape;
@@ -54,6 +57,10 @@ class Player : public Entity {
         ~Player() { delete shape; }
         
         void update();
+
+        void BeginContact(Entity* entity, void* fixtureData);
+        void EndContact(Entity* entity, void* fixtureData);
+
         void BeginContact(Ground* ground);
         void EndContact(Ground* ground);
 };
@@ -65,6 +72,6 @@ class Ground : public Entity {
         Ground(sf::Vector2f size, float x, float y, b2World* world);
         ~Ground() { delete shape; }
 
-        void BeginContact(Player* player) {};
-        void EndContact(Player* player) {};
+        void BeginContact(Entity* entity, void* fixtureData);
+        void EndContact(Entity* entity, void* fixtureData);
 };
