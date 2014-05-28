@@ -80,3 +80,12 @@ class Ground : public Entity {
         void BeginContact(Entity* entity, void* fixtureData);
         void EndContact(Entity* entity, void* fixtureData);
 };
+
+class Marker : public Entity {
+    public:
+        Marker(float x, float y, b2World* world);
+        ~Marker() {};
+
+        void BeginContact(Entity* entity, void* fixtureData);
+        void EndContact(Entity* entity, void* fixtureData);
+};
