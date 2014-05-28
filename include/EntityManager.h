@@ -16,7 +16,7 @@ class EntityManager {
 
         void render();
         void update();
-
+        void checkDestroy();
     private:
         std::map<std::string, Entity*> entities;
         sf::Clock clock;

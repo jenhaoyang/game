@@ -3,7 +3,17 @@
 #include <Box2D/Box2D.h>
 #include <cstdint>
 
-Entity::Entity(b2Vec2 maxVelocity) : maxVelocity(maxVelocity), id(E_NULL) {}
+Entity::Entity(b2Vec2 maxVelocity) : maxVelocity(maxVelocity), id(E_NULL), destroyFlag(false) {}
+
+Entity::~Entity() {
+    delete shape;
+}
+
+bool Entity::checkDestroy() {
+    if (destroyFlag)
+        StateChanger::get_state()->world->DestroyBody(body);
+    return destroyFlag;
+}
 
 Player::Player(sf::Vector2f size, b2Vec2 maxVelocity, float x, float y, b2World* world) : Entity(maxVelocity) {
     id = E_PLAYER;
@@ -118,6 +128,7 @@ void Ground::BeginContact(Entity* entity, void* fixtureData) {
         std::cout << "Begin foot contact" << std::endl;
         return;
     }
+
     switch(entity->getID()) {
         default:
             break;
@@ -129,6 +140,7 @@ void Ground::EndContact(Entity* entity, void* fixtureData) {
         std::cout << "Begin foot contact" << std::endl;
         return;
     }
+
     switch(entity->getID()) {
         default:
             break;

@@ -25,13 +25,15 @@ enum e_id {
 class Entity : public sf::Drawable {
     public:
         Entity(b2Vec2 maxVelocity);
-        virtual ~Entity() {};
+        virtual ~Entity();
         //step function for each entity
         virtual void update() {};
         virtual e_id getID() { return id; };
         b2Body* body;
         virtual void BeginContact(Entity* entity, void* fixtureData) = 0;
         virtual void EndContact(Entity* entity, void* fixtureData) = 0;
+        virtual bool checkDestroy();
+        virtual void destroy() { destroyFlag = true; }
     protected:
         //shape to be drawn on the screen
         sf::Shape* shape;
@@ -39,6 +41,7 @@ class Entity : public sf::Drawable {
         b2Vec2 maxVelocity;
         e_id id;
     private:
+        bool destroyFlag;
         virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const {
             b2Vec2 pos = body->GetPosition();
             float angle = body->GetAngle() * RADTODEG;
@@ -54,7 +57,7 @@ class Entity : public sf::Drawable {
 class Player : public Entity {
     public:
         Player(sf::Vector2f size, b2Vec2 maxVelocity, float x, float y, b2World* world);
-        ~Player() { delete shape; }
+        ~Player() {};
         
         void update();
 
@@ -72,7 +75,7 @@ class Player : public Entity {
 class Ground : public Entity {
     public:
         Ground(sf::Vector2f size, float x, float y, b2World* world);
-        ~Ground() { delete shape; }
+        ~Ground() {};
 
         void BeginContact(Entity* entity, void* fixtureData);
         void EndContact(Entity* entity, void* fixtureData);

@@ -64,6 +64,7 @@ void MainScreen::logic() {
             StateChanger::window.setView(sf::View(visibleArea));
         }
     }
+    entity_manager.checkDestroy();
     entity_manager.update();
     world->Step(1.0f/60.0f, 10, 8);
 }

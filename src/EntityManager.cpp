@@ -40,3 +40,9 @@ void EntityManager::update() {
     for (EntityManager_const_iter iter = entities.begin(); iter != entities.end(); iter++)
         iter->second->update();
 }
+
+void EntityManager::checkDestroy() {
+    for (EntityManager_const_iter iter = entities.begin(); iter != entities.end(); iter++)
+        if (iter->second->checkDestroy())
+            remove(iter->first);
+}
